@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="width=500">
+	<meta charset="utf-8">
+	<title>杂项设置</title>
+	<script>
+		function H()
+		{
+			window.open("https://github.com/Aircoookie/WLED/wiki/Settings#security-settings");
+		}
+		function B()
+		{
+			window.open("/settings","_self");
+		}
+		function U()
+		{
+			window.open("/update","_self");
+		}
+		function GetV()
+		{
+			//values injected by server while sending HTML
+		}
+	</script>
+	<style>
+		@import url("style.css");
+	</style>
+</head>
+<body onload="GetV()">
+	<form id="form_s" name="Sf" method="post">
+		<div class="helpB"><button type="button" onclick="H()">?</button></div>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存 重启</button><hr>
+		<h2>安全和更新设置</h2>
+		锁定无线（OTA）软件更新： <input type="checkbox" name="NO"><br>
+		密码短语： <input type="password" name="OP" maxlength="32"><br>
+		要启用OTA，出于安全原因，您还需要输入正确的密码！<br>
+		启用OTA时应更改密码。<br>
+		<b>不使用时禁用OTA，否则攻击者可以刷新设备软件！</b><br>
+		<i>只有禁用OTA锁定时，此页上的设置才可更改！</i><br>
+		如果锁定，拒绝访问WiFi设置： <input type="checkbox" name="OW"><br><br>
+		恢复出厂设置： <input type="checkbox" name="RS"><br>
+		所有设置和预设都将被清除。<br><br>
+		HTTP通信未加密。同一网络中的攻击者可以截获表单数据！
+		<h3>软件更新</h3>
+		<button type="button" onclick="U()">手动OTA更新</button><br>
+		启用Arduino OTA: <input type="checkbox" name="AO"><br>
+		<h3>About</h3>
+		<a href="https://github.com/Aircoookie/WLED/" target="_blank">WLED</a> 版本 ##VERSION##<!-- Autoreplaced from package.json --><br><br>
+		<a href="https://github.com/Aircoookie/WLED/wiki/Contributors-and-credits" target="_blank">贡献者，依赖和特别感谢</a><br>
+		非常感谢所有帮助我创建WLED<br><br>
+		(c) 2016-2021 Christian Schwinne <br>
+		<i>根据 <a href="https://github.com/Aircoookie/WLED/blob/master/LICENSE" target="_blank">MIT license</a></i><br><br>
+		服务器消息： <span class="sip"> 响应错误！ </span><hr>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存 重启</button>
+	</form>
+</body>
+</html>

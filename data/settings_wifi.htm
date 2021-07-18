@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+	<meta name="viewport" content="width=500">
+	<title>Wi-Fi 设置</title>
+	<script>
+		function H()
+		{
+			window.open("https://github.com/Aircoookie/WLED/wiki/Settings#wifi-settings");
+		}
+		function B()
+		{
+			window.open("/settings","_self");
+		}
+		function GetV()
+		{
+			//values injected by server while sending HTML
+		}
+	</script>
+	<style>
+		@import url("style.css");
+	</style>
+</head>
+<body onload="GetV()">
+	<form id="form_s" name="Sf" method="post">
+		<div class="helpB"><button type="button" onclick="H()">?</button></div>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存 & 连接</button><hr>
+		<h2>Wi-Fi 设置</h2>
+		<h3>连接到现有网络</h3>
+		网络名称（SSID，空表示不连接）： <br><input name="CS" maxlength="32"><br>
+		网络密码： <br> <input type="password" name="CP" maxlength="63"><br>
+		固定 IP (设为 0.0.0.0 就自动启用 DHCP):<br>
+		<input name="I0" type="number" class="s" min="0" max="255" required> .
+		<input name="I1" type="number" class="s" min="0" max="255" required> .
+		<input name="I2" type="number" class="s" min="0" max="255" required> .
+		<input name="I3" type="number" class="s" min="0" max="255" required><br>
+		固定网关:<br>
+		<input name="G0" type="number" class="s" min="0" max="255" required> .
+		<input name="G1" type="number" class="s" min="0" max="255" required> .
+		<input name="G2" type="number" class="s" min="0" max="255" required> .
+		<input name="G3" type="number" class="s" min="0" max="255" required><br>
+		子网掩码:<br>
+		<input name="S0" type="number" class="s" min="0" max="255" required> .
+		<input name="S1" type="number" class="s" min="0" max="255" required> .
+		<input name="S2" type="number" class="s" min="0" max="255" required> .
+		<input name="S3" type="number" class="s" min="0" max="255" required><br>
+		mDNS 地址 (留空为无):<br/>
+		http:// <input name="CM" maxlength="32"> .local<br>
+		客户端 IP: <span class="sip"> 没连上 </span> <br>
+		<h3>配置无线网络</h3>
+		无线网络名称 SSID (留空为无):<br> <input name="AS" maxlength="32"><br>
+		隐藏无线网络名称: <input type="checkbox" name="AH"><br>
+		密码 (留空为无):<br> <input type="password" name="AP" maxlength="63" pattern="(.{8,63})|()" title="Empty or min. 8 characters"><br>
+		信道: <input name="AC" type="number" class="xs" min="1" max="13" required><br>
+    AP 开放:
+    <select name="AB">
+    <option value="0">启动后没有连接</option>
+    <option value="1">断开的</option>
+    <option value="2">总是</option>
+    <option value="3">从不 (不推荐)</option></select><br>
+		AP IP: <span class="sip"> 不活动 </span><br>
+		<h3>实验性的</h3>
+		禁用WiFi休眠: <input type="checkbox" name="WS"><br>
+		<i>可以帮助解决连接问题.<br>
+    如果WiFi工作正常，请不要启用，否则会增加功耗.</i>
+    <div id="ethd">
+		<h3>以太网类型</h3>
+		<select name="ETH">
+		<option value="0">无</option>
+    <option value="2">ESP32-POE</option>
+    <option value="6">ESP32Deux</option>
+    <option value="4">QuinLED-ESP32</option>
+    <option value="5">TwilightLord-ESP32</option>
+    <option value="3">WESP32</option>
+		<option value="1">WT32-ETH01</option>
+    </select><br><br></div>
+		<hr>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存 & 连接</button>
+	</form>
+</body>
+</html>

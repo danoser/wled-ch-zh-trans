@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta name="viewport" content="width=500"><meta charset="utf-8"><title>DMX 设置</title>
+<script>
+function GCH(num) {
+  d=document;
+  d.getElementById('dmxchannels').innerHTML += "";
+  for (i=0;i<num;i++) {
+    d.getElementById('dmxchannels').innerHTML += "<span id=CH" + (i+1) + "s >Channel " + (i+1) + ": <select name=CH" + (i+1) + " id=\"CH" + (i+1) + "\"><option value=0>设置到0</option><option value=1>红</option><option value=2>绿</option><option value=3>蓝</option><option value=4>White</option><option value=5>快门 (Brightness)</option><option value=6>设置到255</option></select></span><br />\n";
+  }
+}
+function mMap(){
+  d=document;
+  numCh=document.Sf.CN.value;
+  numGap=document.Sf.CG.value;
+  if (parseInt(numCh)>parseInt(numGap)) {
+    d.getElementById("gapwarning").style.display="block";
+  } else {
+    d.getElementById("gapwarning").style.display="none";
+  }
+  for (i=0;i<15;i++) {
+    if (i>=numCh) {
+      d.getElementById("CH"+(i+1) + "s").style.opacity = "0.5";
+      d.getElementById("CH"+(i+1)).disabled = true;
+      
+    } else {
+      d.getElementById("CH"+(i+1) + "s").style.opacity = "1";
+      d.getElementById("CH"+(i+1)).disabled = false;
+    }
+  }
+}
+function S(){GCH(15);GetV();mMap();}function H(){window.open("https://github.com/Aircoookie/WLED/wiki/DMX");}function B(){window.history.back();}
+function GetV(){}
+</script>
+<style>
+	@import url("style.css");
+</style>
+</head>
+<body onload="S()">
+<form id="form_s" name="Sf" method="post">
+<div class="helpB"><button type="button" onclick="H()">?</button></div>
+<button type="button" onclick="B()">返回</button><button type="submit">保存</button><hr>
+<h2>Imma firin ma lazer (如果有DMX支持)</h2><!-- TODO: Change to something less-meme-related //-->
+
+全局代理 <input name=PU type=number min=0 max=63999 required> 从 E1.31 到 DMX (0=禁用)<br>
+<i>这将禁用以下可配置的到DMX的LED数据输出</i><br><br>
+<i>装置数量取自LED配置页面</i><br>
+
+每个装置的通道 (最多15): <input type="number" min="1" max="15" name="CN" maxlength="2" onchange="mMap();"><br />
+起始通道: <input type="number" min="1" max="512" name="CS" maxlength="2"><br />
+起始通道间距: <input type="number" min="1" max="512" name="CG" maxlength="2" onchange="mMap();"> [ <a href="javascript:alert('if set to 10, first fixture will start at 10,\nsecond will start at 20 etc.\nRegardless of the channel count.\nMakes memorizing channel numbers easier.');">info</a> ]<br>
+<div id="gapwarning" style="color: orange; display: none;">警告：通道间隙小于每个装置的通道。<br />这将导致重叠。</div>
+<button type="button" onclick="location.href='/dmxmap';">DMX Map</button><br>
+DMX 装置起始 LED: <input type="number" min="0" max="1500" name="SL">
+<h3>通道功能</h3>
+<div id="dmxchannels"></div>
+<hr><button type="button" onclick="B()">返回</button><button type="submit">保存</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta name="viewport" content="width=500"><meta charset="utf-8"><title>Sync Settings</title>
+<script>var d=document;
+function H(){window.open("https://github.com/Aircoookie/WLED/wiki/Settings#sync-settings");}function B(){window.open("/settings","_self");}
+function adj(){if (d.Sf.DI.value == 6454) {if (d.Sf.DA.value == 1) d.Sf.DA.value = 0; if (d.Sf.EU.value == 1) d.Sf.EU.value = 0;}
+               else if (d.Sf.DI.value == 5568) {if (d.Sf.DA.value == 0) d.Sf.DA.value = 1; if (d.Sf.EU.value == 0) d.Sf.EU.value = 1;} }
+function SP(){var p = d.Sf.DI.value; d.getElementById("xp").style.display = (p > 0)?"none":"block"; if (p > 0) d.Sf.EP.value = p;}
+function SetVal(){switch(parseInt(d.Sf.EP.value)){case 5568: d.Sf.DI.value = 5568; break; case 6454: d.Sf.DI.value = 6454; break; case 4048: d.Sf.DI.value = 4048; break; }; SP();}
+function S(){GetV();SetVal();}
+function GetV(){var d=document;}
+</script>
+<style>@import url("style.css");</style></head>
+<body onload="S()">
+<form id="form_s" name="Sf" method="post">
+<div class="helpB"><button type="button" onclick="H()">?</button></div>
+<button type="button" onclick="B()">返回</button><button type="submit">保存</button><hr>
+<h2>同步设置</h2>
+<h3>WLED 广播</h3>
+UDP Port: <input name="UP" type="number" min="1" max="65535" class="d5" required><br>
+2nd Port: <input name="U2" type="number" min="1" max="65535" class="d5" required><br>
+接收: <input type="checkbox" name="RB">亮度, <input type="checkbox" name="RC">颜色, 和 <input type="checkbox" name="RX">效果<br>
+直接更改时发送通知： <input type="checkbox" name="SD"><br>
+按按钮或红外发送通知： <input type="checkbox" name="SB"><br>
+发送Alexa通知： <input type="checkbox" name="SA"><br>
+发送飞利浦Hue更改通知： <input type="checkbox" name="SH"><br>
+发送宏通知： <input type="checkbox" name="SM"><br>
+发送两次通知： <input type="checkbox" name="S2"><br>
+<i>应用更改需要重新启动。 </i>
+<h3>实例列表</h3>
+启用实例列表： <input type="checkbox" name="NL"><br>
+使此实例可发现: <input type="checkbox" name="NB"><br>
+<h3>实时</h3>
+实时接收UDP： <input type="checkbox" name="RD"><br><br>
+<i>网络DMX输入</i><br>
+类型：
+<select name=DI onchange="SP(); adj();">
+<option value=5568>E1.31 (sACN)</option>
+<option value=6454>Art-Net</option>
+<option value=4048>DDP</option>
+<option value=0 selected>自定义 port</option>
+</select><br>
+<div id=xp>Port: <input name="EP" type="number" min="1" max="65535" value="5568" class="d5" required><br></div>
+多播： <input type="checkbox" name="EM"><br>
+开始全局： <input name="EU" type="number" min="0" max="63999" required><br>
+<i>需要重新启动。</i> 检查 <a href="https://github.com/LedFx/LedFx" target="_blank">LedFx</a>!<br>
+跳过无序数据包: <input type="checkbox" name="ES"><br>
+DMX 起始地址： <input name="DA" type="number" min="0" max="510" required><br>
+DMX 模式:
+<select name=DM>
+<option value=0>禁用</option>
+<option value=1>单 RGB</option>
+<option value=2>单 DRGB</option>
+<option value=3>效果</option>
+<option value=4>多 RGB</option>
+<option value=5>调光 + 多 RGB</option>
+<option value=6>多 RGBW</option>
+</select><br>
+<a href="https://github.com/Aircoookie/WLED/wiki/E1.31-DMX" target="_blank">E1.31 信息</a><br>
+超时: <input name="ET" type="number" min="1" max="65000" required> ms<br>
+强制最大亮度： <input type="checkbox" name="FB"><br>
+禁用实时gamma校正： <input type="checkbox" name="RG"><br>
+实时LED偏移： <input name="WO" type="number" min="-255" max="255" required>
+<h3>Alexa语音助手</h3>
+模拟Alexa设备：<input type="checkbox" name="AL"><br>
+Alexa调用名称： <input name="AI" maxlength="32">
+<h3>Blynk</h3>
+<b>Blynk, MQTT and Hue 同步所有连接到外部主机！<br>
+这可能会影响 ESP8266.</b><br>
+为了获得最佳效果，一次只能使用其中一种服务。<br>
+(或者，将另一个ESP连接到它们并使用UDP同步)<br><br>
+Host: <input name="BH" maxlength="32">
+Port: <input name="BP" type="number" min="1" max="65535" value="80" class="d5"><br>
+Device Auth token: <input name="BK" maxlength="33"><br>
+<i>清除要禁用的令牌字段。 </i><a href="https://github.com/Aircoookie/WLED/wiki/Blynk" target="_blank">Setup 信息</a>
+<h3>MQTT</h3>
+启用 MQTT: <input type="checkbox" name="MQ"><br>
+Broker: <input name="MS" maxlength="32">
+Port: <input name="MQPORT" type="number" min="1" max="65535" class="d5"><br>
+<b>MQTT凭据通过不安全的连接发送。<br>
+切勿将MQTT密码用于其他服务！</b><br>
+Username: <input name="MQUSER" maxlength="40"><br>
+Password: <input type="password" name="MQPASS" maxlength="64"><br>
+Client ID: <input name="MQCID" maxlength="40"><br>
+Device Topic: <input name="MD" maxlength="32"><br>
+Group Topic: <input name="MG" maxlength="32"><br>
+<i>应用更改需要重新启动。 </i><a href="https://github.com/Aircoookie/WLED/wiki/MQTT" target="_blank">MQTT 信息</a>
+<h3>飞利浦 Hue</h3>
+<i>你可以在应用程序的“关于”部分找到网桥IP和灯号。</i><br>
+获取 Hue light <input name="HL" type="number" min="1" max="99" > 每个 <input name="HI" type="number" min="100" max="65000"> ms: <input type="checkbox" name="HP"><br>
+然后，接收 <input type="checkbox" name="HO"> 开关, <input type="checkbox" name="HB"> 亮度和 <input type="checkbox" name="HC"> 颜色<br>
+Hue 网桥IP:<br>
+<input name="H0" type="number" min="0" max="255" > .
+<input name="H1" type="number" min="0" max="255" > .
+<input name="H2" type="number" min="0" max="255" > .
+<input name="H3" type="number" min="0" max="255" ><br>
+<b>按下桥上的链接按钮，然后保存！</b><br>
+(首次连接时)<br>
+Hue 状态： <span class="sip"> 在此生成中禁用 </span><hr>
+<button type="button" onclick="B()">返回</button><button type="submit">保存</button>
+</form>
+</body>
+</html>

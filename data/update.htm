@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8">
+    <meta content='width=device-width' name='viewport'>
+    <title>WLED 更新</title>
+    <script>function B() { window.history.back() }
+    function U() {document.getElementById("uf").style.display="none";document.getElementById("msg").style.display="block";}
+    </script>
+    <style>
+      .bt {
+        background: #333;
+        color: #fff;
+        font-family: Verdana, sans-serif;
+        border: .3ch solid #333;
+        display: inline-block;
+        font-size: 20px;
+        margin: 8px;
+        margin-top: 12px
+      }
+
+      input[type=file] {
+        font-size: 16px
+      }
+
+      body {
+        font-family: Verdana, sans-serif;
+        text-align: center;
+        background: #222;
+        color: #fff;
+        line-height: 200%
+      }
+      
+      #msg {
+        display: none;
+      }
+    </style>
+</head>
+
+<body>
+    <h2>WLED软件更新</h2>
+    <form method='POST' action='/update' id='uf' enctype='multipart/form-data' onsubmit="U()">
+      已安装版本： ##VERSION##<br>
+      下载最新的固件： <a href="https://github.com/Aircoookie/WLED/releases" target="_blank">
+      <img src="https://img.shields.io/github/release/Aircoookie/WLED.svg?style=flat-square"></a><br>
+      <input type='file' class="bt" name='update' required><br> <!--should have accept='.bin', but it prevents file upload from android app-->
+      <input type='submit' class="bt" value='上传！' ><br>
+      <button type="button" class="bt" onclick="B()">返回</button></form>
+    <div id="msg"><b>更更新新中...</b><br>请不要关闭或刷新页面 :)</div>
+</body>
+
+</html>

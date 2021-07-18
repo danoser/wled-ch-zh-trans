@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8">
+	<title>WLED设置</title>
+	<style>
+		body {
+			text-align: center;
+			background: #222;
+			height: 100px;
+			margin: 0;
+		}
+		html {
+			--h: 10.2vh;
+		}
+		button {
+			background: #333;
+			color: #fff;
+			font-family: Verdana, Helvetica, sans-serif;
+			border: 1px solid #333;
+			font-size: 6vmin;
+			height: var(--h);
+			width: 95%;
+			margin-top: 2vh;
+		}
+	</style>
+	<script>
+	function BB()
+	{
+		if (window.frameElement) {
+			document.getElementById("b").style.display = "none";
+			document.documentElement.style.setProperty('--h',"13.86vh");
+		}
+	}
+	</script>
+</head>
+<body onload="BB()">
+<form action="/"><button type=submit id="b">返回</button></form>
+<form action="/settings/wifi"><button type="submit">Wi-Fi 设置</button></form>
+<form action="/settings/leds"><button type="submit">LED首选项</button></form>
+<form action="/settings/ui"><button type="submit">用户界面</button></form>
+<form action="/settings/sync"><button type="submit">同步界面</button></form>
+<form action="/settings/time"><button type="submit">时间和宏</button></form>
+<form action="/settings/um"><button type="submit">用户模式</button></form>
+<form action="/settings/sec"><button type="submit">安全和更新</button></form>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="width=500">
+	<meta charset="utf-8">
+	<title>时间设置</title>
+	<script>
+    var d=document;
+	function H()
+	{
+		window.open("https://github.com/Aircoookie/WLED/wiki/Settings#time-settings");
+	}
+	function B()
+	{
+		window.open("/settings","_self");
+	}
+	function S()
+	{
+		BTa();GetV();Cs();FC();
+	}
+	function gId(s)
+	{
+		return d.getElementById(s);
+	}
+	function Cs()
+	{
+		gId("cac").style.display="none";
+		gId("coc").style.display="block";
+		gId("ccc").style.display="none";
+		if (gId("ca").selected)
+		{
+			gId("cac").style.display="block";
+		}
+		if (gId("cc").selected)
+		{
+			gId("coc").style.display="none";
+			gId("ccc").style.display="block";
+		}
+		if (gId("cn").selected)
+		{
+			gId("coc").style.display="none";
+		}
+	}
+    function BTa()
+    {
+      var ih="<tr><th>Active</th><th>Hour</th><th>Minute</th><th>Preset</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th></tr>";
+      for (i=0;i<8;i++)
+      {
+        ih+="<tr><td><input name=\"W"+i+"\" id=\"W"+i+"\" type=\"number\" style=\"display:none\"><input id=\"W"+i+"0\" type=\"checkbox\"></td><td><input name=\"H"+i+"\" type=\"number\" min=\"0\" max=\"24\"></td><td><input name=\"N"+i+"\" type=\"number\" min=\"0\" max=\"59\"></td><td><input name=\"T"+i+"\" type=\"number\" min=\"0\" max=\"250\"></td>";
+        for (j=1;j<8;j++) ih+="<td><input id=\"W"+i+j+"\" type=\"checkbox\"></td>";
+      }
+	  ih+="<tr><td><input name=\"W8\" id=\"W8\" type=\"number\" style=\"display:none\"><input id=\"W80\" type=\"checkbox\"></td><td>Sunrise<input name=\"H8\" value=\"255\" type=\"hidden\"></td><td><input name=\"N8\" type=\"number\" min=\"-59\" max=\"59\"></td><td><input name=\"T8\" type=\"number\" min=\"0\" max=\"250\"></td>";
+      for (j=1;j<8;j++) ih+="<td><input id=\"W8"+j+"\" type=\"checkbox\"></td>";
+      ih+="<tr><td><input name=\"W9\" id=\"W9\" type=\"number\" style=\"display:none\"><input id=\"W90\" type=\"checkbox\"></td><td>Sunset<input name=\"H9\" value=\"255\" type=\"hidden\"></td><td><input name=\"N9\" type=\"number\" min=\"-59\" max=\"59\"><td><input name=\"T9\" type=\"number\" min=\"0\" max=\"250\"></td>";
+      for (j=1;j<8;j++) ih+="<td><input id=\"W9"+j+"\" type=\"checkbox\"></td>";
+      gId("TMT").innerHTML=ih;
+    }
+    function FC()
+    {
+      for(j=0;j<8;j++)
+      {
+        for(i=0;i<10;i++) gId("W"+i+j).checked=gId("W"+i).value>>j&1;
+      }
+    }
+    function Wd()
+    {
+      a=[0,0,0,0,0,0,0,0,0,0];
+      for(i=0;i<10;i++)
+      {
+        m=1;
+        for(j=0;j<8;j++)
+        {
+          a[i]+=gId("W"+i+j).checked*m;m*=2;
+        }
+        gId("W"+i).value=a[i];
+      }
+    }
+	function addRow(i,p,l,d) {
+		var t = gId("macros");	// table
+        var rCnt = t.rows.length;   // get the number of rows.
+        var tr = t.insertRow(rCnt); // table row.
+
+		var td = document.createElement('td');          // TABLE DEFINITION.
+		td = tr.insertCell(0);
+		td.innerHTML = `Button ${i}:`;
+		td = tr.insertCell(1);
+		td.innerHTML = `<input name="MP${i}" type="number" min="0" max="250" value="${p}" required>`;
+		td = tr.insertCell(2);
+		td.innerHTML = `<input name="ML${i}" type="number" min="0" max="250" value="${l}" required>`;
+		td = tr.insertCell(3);
+		td.innerHTML = `<input name="MD${i}" type="number" min="0" max="250" value="${d}" required>`;
+	}
+	function GetV()
+	{
+		//values injected by server while sending HTML
+	}
+	</script>
+	<style>
+		@import url("style.css");
+	</style>
+</head>
+<body onload="S()">
+	<form id="form_s" name="Sf" method="post" onsubmit="Wd()">
+		<div class="helpB"><button type="button" onclick="H()">?</button></div>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存</button><hr>
+		<h2>时间设置</h2>
+		从NTP服务器获取时间： <input type="checkbox" name="NT"><br>
+    <input name="NS" maxlength="32"><br>
+		使用24小时格式： <input type="checkbox" name="CF"><br>
+		时区： 
+		<select name="TZ">
+			<option value="0" selected>GMT(UTC)</option>
+			<option value="1">GMT/BST</option>
+			<option value="2">CET/CEST</option>
+			<option value="3">EET/EEST</option>
+			<option value="4">US-EST/EDT</option>
+			<option value="5">US-CST/CDT</option>
+			<option value="6">US-MST/MDT</option>
+			<option value="7">US-AZ</option>
+			<option value="8">US-PST/PDT</option>
+			<option value="9">CST(AWST)</option>
+			<option value="10">JST(KST)</option>
+			<option value="11">AEST/AEDT</option>
+			<option value="12">NZST/NZDT</option>
+			<option value="13">North Korea</option>
+			<option value="14">IST (India)</option>
+			<option value="15">CA-Saskatchewan</option>
+			<option value="16">ACST</option>
+			<option value="17">ACST/ACDT</option>
+			<option value="18">HST (Hawaii)</option>
+		</select><br>
+		UTC 偏移： <input name="UO" type="number" min="-65500" max="65500" required> 秒 (最多. 18 小时)<br>
+		当前本地时间为 <span class="times">未知</span>.<br>
+		纬度 (N): <input name="LT" type="number" min="-66.6" max="66.6" step="0.01">
+		经度 (E): <input name="LN" type="number" min="-180" max="180" step="0.01">
+		<div id="sun" class="times"></div>
+		<h3>时钟</h3>
+		时钟覆盖：
+		<select name="OL" onchange="Cs()">
+			<option value="0" id="cn" selected>无</option>
+			<option value="1" id="ca">模拟时钟</option>
+			<option value="2">一位数时钟</option>
+			<option value="3" id="cc">克洛尼昔钟</option>
+		</select><br>
+		<div id="coc">
+		首个LED: <input name="O1" type="number" min="0" max="255" required> 最末LED: <input name="O2" type="number" min="0" max="255" required><br>
+			<div id="cac">
+			12h LED: <input name="OM" type="number" min="0" max="255" required><br>
+			显示5分钟标记: <input type="checkbox" name="O5"><br></div>
+			秒（作为轨迹）: <input type="checkbox" name="OS"><br>
+		</div>
+		<div id="ccc">
+		Cronixie显示： <input name="CX" maxlength="6"><br>
+		Cronixie背光: <input type="checkbox" name="CB"><br>
+		</div>
+		倒计时模式: <input type="checkbox" name="CE"><br>
+		倒计时目标:<br>
+		年: 20 <input name="CY" type="number" min="0" max="99" required> 月: <input name="CI" type="number" min="1" max="12" required> 日: <input name="CD" type="number" min="1" max="31" required><br>
+		时: <input name="CH" type="number" min="0" max="23" required> 分: <input name="CM" type="number" min="0" max="59" required> 秒: <input name="CS" type="number" min="0" max="59" required><br>
+		<h3>宏预设</h3>
+    	<b>宏已改动！</b><br>
+    	<i>预设现在也可以用作宏来保存JSON和http api命令。<br>
+    	只需在下面输入预设id！</i>
+		<i>使用0作为默认操作，而不是预设</i><br>
+		Alexa开/关预设: <input name="A0" type="number" min="0" max="250" required> <input name="A1" type="number" min="0" max="250" required><br>
+		预设倒计时: <input name="MC" type="number" min="0" max="250" required><br>
+		定时灯光关闭: <input name="MN" type="number" min="0" max="250" required><br>
+		<h3>按钮动作</h3>
+		<table style="margin: 0 auto;" id="macros">
+			<thead>
+				<tr>
+					<td>按下<br>切换</td>
+					<td>短按<br>开-&gt;关</td>
+					<td>长按<br>关-&gt;开</td>
+					<td>双击<br>N/A</td>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<a href="https://github.com/Aircoookie/WLED/wiki/Macros#analog-button" target="_blank">模拟按钮设置</a>
+		<h3>时间控制预设</h3>
+    <div style="display: inline-block">
+    <table id="TMT">
+    </table></div><hr>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存</button>
+	</form>
+</body>
+</html>
